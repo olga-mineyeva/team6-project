@@ -1,10 +1,3 @@
-# CSV File Documentation
+This branch is a copy of Niccolo's branch data_analysis_24_10_18
 
-## File Names: Training.csv, Testing.csv
-
-### Source
-https://www.kaggle.com/datasets/kaushil268/disease-prediction-using-machine-learning
-
-### Changes Made
-- 10/19/2024 : Removed duplicate fluid overload column on Training.csv and Testing.csv, removed trailing commas on Training.csv
-
+with symptom_overlap_eda.ipynb file added (exploring processed training data)
