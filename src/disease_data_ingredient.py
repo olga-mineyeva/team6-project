@@ -176,7 +176,7 @@ def get_validation_data(processed_data_path, testing_file_name):
     '''Loads data from a given location.'''
     _logs.info(f'Getting testing data from {processed_data_path}')
     file_path = os.path.join(processed_data_path, testing_file_name)
-    df = pd.read_csv(processed_data_path)
+    df = pd.read_csv(file_path)
     return df
 
 @data_ingredient.capture
