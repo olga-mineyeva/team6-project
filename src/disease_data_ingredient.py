@@ -82,9 +82,21 @@ def process_data(raw_data_path, processed_data_path):
             df.rename(columns={"fluid_overload.1": "fluid_overload"}, inplace=True)
         if "toxic_look_(typhos)" in df.columns:
             df.rename(columns={"toxic_look_(typhos)": "toxic_look_typhos"}, inplace=True)
+
+        # Check for invalid entries, rows with all zeroes.
+        all_zero_per_row = (df.iloc[:, :-1] == 0).all(axis=1) 
+        count_zero_rows = all_zero_per_row.sum()
+
+        _logs.info(f"Number of rows with all zeros (excluding last column): {count_zero_rows}")
+
+        # Remove rows where all columns (except the last) are zero
+        df_cleaned = df.loc[all_zero_per_row.eq(False)]
+
+        # print("DataFrame after removing rows with all zeros (excluding last column):")
+        # print(df_cleaned)
         
         # Save the updated DataFrame to the processed directory
-        df.to_csv(os.path.join(processed_data_path, csv_file), index=False)
+        df_cleaned.to_csv(os.path.join(processed_data_path, csv_file), index=False)
 
         # Re-check column names
         _logs.info(f"Updated column names: {df.columns.tolist()}")
