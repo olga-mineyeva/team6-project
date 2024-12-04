@@ -193,7 +193,7 @@ def load_data():
         
     df = get_training_data()
     X = df.drop(columns = ['prognosis'])
-    Y = df[['prognosis']]
+    Y = df['prognosis']
 
     return X, Y
 
