@@ -56,13 +56,13 @@ def cfg():
     """
     Main experiment config.
     """
-    # models = ["LogisticRegression", "RandomForest", "KNN"]
-    models = ["CustomNeuralNetMDK"]
+    models = ["LogisticRegression", "RandomForest", "KNN"]
+    # models = ["CustomNeuralNetMDK"]
     folds = 5
     scoring = {"accuracy": "accuracy", "f1": make_scorer(f1_score, average="weighted")}
     refit = "f1"
     # preprocessors = [None, "SelectKBest"]  # removed RFE
-    preprocessors = ["SelectKBest"]
+    preprocessors = ["RFE"]
 
 @ex.capture
 def get_pipe(model, preproc=None, X=None):
