@@ -12,6 +12,7 @@ from sklearn.feature_selection import RFE
 from keras.models import Sequential
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import KFold
+from CustomNeuralNetMDKClassifier import CustomNeuralNetMDKClassifier
 from dotenv import load_dotenv
 from datetime import datetime
 
@@ -56,13 +57,13 @@ def cfg():
     """
     Main experiment config.
     """
-    models = ["LogisticRegression", "RandomForest", "KNN"]
-    # models = ["CustomNeuralNetMDK"]
+    # models = ["LogisticRegression", "RandomForest", "KNN"]
+    models = ["CustomNeuralNetMDK"]
     folds = 5
     scoring = {"accuracy": "accuracy", "f1": make_scorer(f1_score, average="weighted")}
     refit = "f1"
-    # preprocessors = [None, "SelectKBest"]  # removed RFE
-    preprocessors = ["RFE"]
+    preprocessors = [None, "SelectKBest", "RFE"]  # removed RFE
+    # preprocessors = ["RFE"] # removed "SelectKBest"
 
 @ex.capture
 def get_pipe(model, preproc=None, X=None):
@@ -90,8 +91,6 @@ def grid_search(pipe, param_grid, X, Y, folds, scoring, refit):
     _logs.info(f"Tuning model")
 
     cv_splitter = KFold(n_splits=folds, shuffle=True, random_state=42)
-
-    print(cv_splitter)
 
     gs = GridSearchCV(pipe, param_grid, scoring=scoring, cv=cv_splitter, refit=refit)
     gs.fit(X, Y)
@@ -153,43 +152,29 @@ def grid_search(pipe, param_grid, X, Y, folds, scoring, refit):
                     f"Fold {i+1} - No feature selection step found in the pipeline"
                 )
 
-    train_accuracies = []
-    val_accuracies = []
-    train_losses = []
-    val_losses = []
+    best_clf = gs.best_estimator_.named_steps["clf"]
 
     # Check if the best estimator is a Keras model
-    if isinstance(pipe_best, KerasClassifier):
+    if isinstance(pipe_best.named_steps["clf"], CustomNeuralNetMDKClassifier):
         _logs.info("Detected Keras model, storing training history.")
+        
+        if hasattr(best_clf, "history_") and best_clf.history_:
+            keras_history = best_clf.history_
 
-        # Store the training history for each fold (KerasClassifier history)
-        for history in pipe_best.history:
-            train_accuracies.append(history["accuracy"])
-            val_accuracies.append(history["val_accuracy"])
-            train_losses.append(history["loss"])
-            val_losses.append(history["val_loss"])
+            df = pd.DataFrame(keras_history)
 
-        # Flatten the history and prepare the data to save into a CSV
-        history_df = pd.DataFrame(
-            {
-                "epoch": np.arange(1, len(train_accuracies[0]) + 1),
-                "train_accuracy": np.concatenate(train_accuracies),
-                "val_accuracy": np.concatenate(val_accuracies),
-                "train_loss": np.concatenate(train_losses),
-                "val_loss": np.concatenate(val_losses),
-            }
-        )
+            df['epoch'] = np.arange(1, len(df) + 1)
 
-        # Create a directory for saving history if it doesn't exist
-        history_dir = os.getenv("HISTORY_PATH", "./reports/keras_training")
-        os.makedirs(history_dir, exist_ok=True)
+            # Save to a CSV file
+            history_dir = os.getenv("HISTORY_PATH", "./reports/keras_training")
+            os.makedirs(history_dir, exist_ok=True)
 
-        history_file = os.path.join(history_dir, f"history_{use_timestamp()}.csv")
+            history_file = os.path.join(history_dir, f"history_{use_timestamp()}.csv")
+            df.to_csv(history_file, index=False)
 
-        # Save the history to a CSV file
-        history_df.to_csv(history_file, index=False)
-
-        _logs.info(f"Saved training history to {history_file}")
+            _logs.info(f"Saved training history to {history_file}")
+        else:
+            _logs.warning("No training history available for the best estimator.")
 
     return res, pipe_best
 
@@ -205,7 +190,7 @@ def pickle_model_artifact(pipe, model, preprocessor, _run):
     artifacts_dir = os.getenv("ARTIFACTS_DIR")
     os.makedirs(artifacts_dir, exist_ok=True)
 
-    if isinstance(model, Sequential):  # Keras model
+    if isinstance(model, CustomNeuralNetMDKClassifier):  # Keras model
         model_type = "keras"
         # Save the Keras model in SavedModel format (this will save the model architecture, weights, etc.)
         outpath = os.path.join(

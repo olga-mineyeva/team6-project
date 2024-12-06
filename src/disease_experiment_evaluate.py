@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from logger import get_logger
 import numpy as np
 from dotenv import load_dotenv
+from sklearn.metrics import f1_score
+from sklearn.model_selection import cross_val_score
 
 from disease_data_ingredient import data_ingredient, load_data, load_validation_data
 
@@ -24,6 +26,9 @@ def run():
 
     models_dir = "./models"
 
+    # Manual override
+    # model_files = ["./models/models/model_CustomNeuralNetMDK_None_241206_01_57_14.pkl"]
+
     # Get a list of all .pkl files in the models directory
     model_files = [f for f in os.listdir(models_dir) if f.endswith(".pkl")]
 
@@ -39,9 +44,10 @@ def run():
             model = pickle.load(file)
 
         # Evaluate on training and validation sets
+
         train_accuracy = model.score(X_train, Y_train)
         val_accuracy = model.score(X_val, Y_val)
-
+        
         # Store the results
         evaluation_results[model_file] = {
             "train_accuracy": train_accuracy,
@@ -78,5 +84,15 @@ def run():
     ax.set_ylim(0, 1)  # Accuracy is between 0 and 1
     ax.legend()
 
+    # plt.tight_layout()
+    # plt.show()
+
+    # Save the confusion matrix plot to a file
+    plot_dir = "./reports/plots/"
+    os.makedirs(plot_dir, exist_ok=True)
+    plot_file = os.path.join(plot_dir, f"validation_accuracy_{model_file}.png")
     plt.tight_layout()
-    plt.show()
+    plt.savefig(plot_file)
+
+    # Close the plot to avoid display after saving
+    plt.close()
