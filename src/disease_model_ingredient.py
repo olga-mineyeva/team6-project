@@ -45,9 +45,11 @@ def get_model(model, X=None):
         return KNeighborsClassifier()
     elif model == "NeuralNet":
         from sklearn.neural_network import MLPClassifier
+
         return MLPClassifier()
     elif model == "CustomNeuralNetMDK":
         from CustomNeuralNetMDKClassifier import CustomNeuralNetMDKClassifier
+
         return CustomNeuralNetMDKClassifier()
     else:
         return None

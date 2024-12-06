@@ -16,9 +16,11 @@ load_dotenv()
 
 ex = Experiment("Disease Experiment Evaluation", ingredients=[data_ingredient])
 
+
 @ex.config
 def cfg():
     pass
+
 
 @ex.automain
 def run():
@@ -28,7 +30,7 @@ def run():
     model_files = [f for f in os.listdir(models_dir) if f.endswith(".pkl")]
 
     evaluation_results = {}
-    
+
     # Inside the loop where models are evaluated:
     for model_file in model_files:
         model_path = os.path.join(models_dir, model_file)
@@ -48,7 +50,9 @@ def run():
 
         # Compute the confusion matrix
         cm = confusion_matrix(Y_val, Y_val_pred, labels=model.classes_)
-        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=model.classes_)
+        disp = ConfusionMatrixDisplay(
+            confusion_matrix=cm, display_labels=model.classes_
+        )
 
         # Plot the confusion matrix
         fig, ax = plt.subplots(figsize=(12, 12))  # Adjust size as needed for clarity

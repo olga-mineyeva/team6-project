@@ -37,10 +37,12 @@ ex.logger = _logs
 
 timestamp = None
 
+
 def updatetimestamp():
     global timestamp
     timestamp = datetime.now().strftime("%y%m%d_%H_%M_%S")
     _logs.info(f"Global timestamp updated to: {timestamp}")
+
 
 # Example function that uses the global timestamp
 def use_timestamp():
@@ -64,6 +66,7 @@ def cfg():
     refit = "f1"
     preprocessors = [None, "SelectKBest", "RFE"]  # removed RFE
     # preprocessors = ["RFE"] # removed "SelectKBest"
+
 
 @ex.capture
 def get_pipe(model, preproc=None, X=None):
@@ -157,13 +160,13 @@ def grid_search(pipe, param_grid, X, Y, folds, scoring, refit):
     # Check if the best estimator is a Keras model
     if isinstance(pipe_best.named_steps["clf"], CustomNeuralNetMDKClassifier):
         _logs.info("Detected Keras model, storing training history.")
-        
+
         if hasattr(best_clf, "history_") and best_clf.history_:
             keras_history = best_clf.history_
 
             df = pd.DataFrame(keras_history)
 
-            df['epoch'] = np.arange(1, len(df) + 1)
+            df["epoch"] = np.arange(1, len(df) + 1)
 
             # Save to a CSV file
             history_dir = os.getenv("HISTORY_PATH", "./reports/keras_training")

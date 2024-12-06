@@ -2,8 +2,17 @@ from keras.wrappers.scikit_learn import KerasClassifier
 from keras.models import Sequential
 from keras.layers import Dense
 
+
 class CustomNeuralNetMDKClassifier:
-    def __init__(self, num_classes=41, epochs=20, batch_size=32, verbose=0, layers=[128, 64], optimizer="adam"):
+    def __init__(
+        self,
+        num_classes=41,
+        epochs=20,
+        batch_size=32,
+        verbose=0,
+        layers=[128, 64],
+        optimizer="adam",
+    ):
         self.num_classes = num_classes
         self.epochs = epochs
         self.batch_size = batch_size
@@ -24,7 +33,7 @@ class CustomNeuralNetMDKClassifier:
             batch_size=self.batch_size,
             verbose=self.verbose,
         )
-    
+
     def get_params(self, deep=True):
         return {
             "num_classes": self.num_classes,
@@ -42,7 +51,7 @@ class CustomNeuralNetMDKClassifier:
 
     def fit(self, X, y):
         self.model_ = self.build_model(input_dim=X.shape[1])
-        fit_result =  self.model_.fit(X, y).history  # Capture history
+        fit_result = self.model_.fit(X, y).history  # Capture history
         self.history_ = fit_result
         return self
 
@@ -51,7 +60,8 @@ class CustomNeuralNetMDKClassifier:
 
     def score(self, X, y):
         return self.model_.score(X, y)
-    
+
+
 def MDKMLClassifierv3(input_dim, num_classes=41, layers=[128, 64], optimizer="adam"):
     model = Sequential()
     # Input layer + first hidden layer

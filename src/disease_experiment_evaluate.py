@@ -47,7 +47,7 @@ def run():
 
         train_accuracy = model.score(X_train, Y_train)
         val_accuracy = model.score(X_val, Y_val)
-        
+
         # Store the results
         evaluation_results[model_file] = {
             "train_accuracy": train_accuracy,

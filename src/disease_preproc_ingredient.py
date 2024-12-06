@@ -50,6 +50,9 @@ def get_preproc_param_grid(preproc_pipe):
     if preproc_pipe == "SelectKBest":
         return {"preproc__k": [80, 90, 100, 110, 120]}
     elif preproc_pipe == "RFE":
-        return {"preproc__n_features_to_select": [100, 110, 120], "preproc__step": [1, 2]}
+        return {
+            "preproc__n_features_to_select": [100, 110, 120],
+            "preproc__step": [1, 2],
+        }
     else:
         return None

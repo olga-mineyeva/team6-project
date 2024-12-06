@@ -56,7 +56,7 @@ def run():
             "val_classification_report": val_report,
         }
 
-         # Print the results for each model
+        # Print the results for each model
         print(f"Evaluating model: {model_file}")
         print(f"Training Accuracy: {train_accuracy}")
         print(f"Validation Accuracy: {val_accuracy}")
