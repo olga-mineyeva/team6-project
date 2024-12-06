@@ -80,6 +80,8 @@ def run():
     ax.set_ylabel("Accuracy")
     ax.set_title("Training vs Validation Accuracy for Each Model")
     ax.set_xticks(x)
+    # Rotate predicted labels (x-axis labels) to vertical
+    plt.xticks(rotation=90)
     ax.set_xticklabels(model_names, rotation=45, ha="right")
     ax.set_ylim(0, 1)  # Accuracy is between 0 and 1
     ax.legend()
