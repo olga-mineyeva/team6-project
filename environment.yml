@@ -1,0 +1,40 @@
+name: team6_project
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - requests
+  - ipykernel
+  - pandas
+  - seaborn
+  - scikit-learn
+  - python-dotenv
+  - dask
+  - pyarrow >=11.0.0
+  - sacred
+  - sqlalchemy
+  - psycopg2
+  - shap
+  - fancyimpute
+  - missingno
+  - tensorflow
+  - matplotlib
+  - plotly
+  - nbformat
+  - scikit-image
+  - opencv
+  - transformers
+  - yfinance
+  - pygam
+  - pybind11
+  - pyodbc
+  - arrow
+  - pip
+  - pip:
+      - l0bnb
+      - faraway
+      - islp
+      - kaggle
+			- kagglehub
