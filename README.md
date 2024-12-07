@@ -164,10 +164,7 @@ A feedforward neural network with _2 hidden layers of 64 and 32 nodes, dropout=0
 ## Project Structure
 
 ```plaintext
-## Project Structure
-
-```plaintext
-team6_project/
+/team6_project/
 ├── README.md                             # Project description and setup instructions
 ├── environment.yml                       # Conda environment setup file
 
@@ -219,7 +216,7 @@ team6_project/
 │   ├── model_LogisticRegression_SelectKBest_241205_16_53_44.pkl
 │   ├── model_RandomForest_None_241205_16_51_08.pkl
 │   ├── model_RandomForest_SelectKBest_241205_16_54_11.pkl
-│   └── reduced_features/                 # Reduced feature models
+│   └── reduced_features/                 # Reduced feature models keras only
 │       ├── model_CustomNeuralNetMDK_RFE_241206_04_17_30.pkl
 │       └── model_CustomNeuralNetMDK_SelectKBest_241206_03_39_01.pkl
 
