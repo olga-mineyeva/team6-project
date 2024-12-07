@@ -44,11 +44,13 @@ These findings suggest that symptom minimization could improve both interpretabi
 The objective of this project is to reduce the set of symptoms required for accurate disease classification while maintaining high performance. 
 
 This involves:
-1) selection suitable classification algorithms, 
-2) creating a pipeline to test various hyperparameter settings for each model,
-3) identifying the most important features (symptoms) for each model. 
-4) Through iterative model training and evaluation, we aim to determine the minimal symptom sets that balance precision and recall.
+1) Understanding the dataset, standardization and cleanup 
+2) Selection suitable classification algorithms 
+3) Creating a pipeline to test various hyperparameter settings for each model
+4) Identifying the most important features (symptoms) for each model 
+5) Through iterative model training and optimization, evaluate if the number of features (symptoms) can be reduced while preserving minimal impact on precision and recall.
 
+Reduction of symptom may have positive impact on reduction of time and resources during intake and triage.
 ---
 
 ## Models and Evaluation
