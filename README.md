@@ -1,7 +1,7 @@
 # team6-project
 A space for Team 6 to collaborate and create a project 
 
-# Data Source
+## Data Source
 - [Disease Prediction Using Machine Learning](https://www.kaggle.com/datasets/kaushil268/disease-prediction-using-machine-learning)
 
 # Disease Prediction with Symptom Minimization Using Machine Learning
@@ -11,7 +11,6 @@ A space for Team 6 to collaborate and create a project
 In real-world clinical settings, the range of symptoms assessed is often limited, necessitating streamlined diagnostic approaches. This project aims to optimize the classification of 42 diseases by minimizing the number of symptoms required for accurate prediction while maintaining high model performance. By leveraging machine learning algorithms, we seek to develop a robust framework to assist physicians in diagnostic decision-making, particularly in scenarios where expedited diagnostic processes are unavoidable.
 
 To achieve this, our team has implemented and tested a range of classification models, including logistic regression, random forest, k-nearest neighbors (KNN), and feedforward neural networks, to identify minimal yet effective symptom sets for disease prediction.
-
 
 ---
 
@@ -52,7 +51,6 @@ This involves:
 
 Reduction of symptom may have positive impact on reduction of time and resources during intake and triage.
 
-
 ---
 
 ## Models and Evaluation
@@ -82,7 +80,6 @@ By using both metrics, we aim to identify models that maintain high accuracy whi
 	
 4. **Cross-Validation**: To ensure robustness, 5-fold cross-validation was conducted during training.
     
-
 ### Tools and Libraries
 
 Python: numpy, pandas, scikit-learn, keras
@@ -149,17 +146,148 @@ A feedforward neural network with _2 hidden layers of 64 and 32 nodes, dropout=0
 ## Environment setup
 
 ## Pre-requisites
-- Miniconda: [Miniconda Installation Page](https://docs.conda.io/projects/miniconda/en/latest/index.html).
-- Git: [Git Installation Page](https://git-scm.com/).
+1. Miniconda: [Miniconda Installation Page](https://docs.conda.io/projects/miniconda/en/latest/index.html).
+2. Git: [Git Installation Page](https://git-scm.com/).
 
 ---
 
 ## Installing project packages
-- To install packages and create env: "conda env create -f environment.yml"
-- To delete the environment: "conda env remove -n team6_project"
-- To activate: "conda activate team6_project"
+1. To install packages and create env: "conda env create -f environment.yml"
+2. To delete the environment: "conda env remove -n team6_project"
+3. To activate: "conda activate team6_project"
 
 ---
 
 ## Loading the dataset
-- Data will automatically load upon running the experiment.
+1. Data will automatically be downloaded(if does not exist and not properly formatted) and preprocessed each time load_data, and load_validation_data is called from disease_data_ingredient.py
+
+## Project Structure
+
+```plaintext
+## Project Structure
+
+```plaintext
+team6_project/
+├── README.md                             # Project description and setup instructions
+├── environment.yml                       # Conda environment setup file
+
+├── data/                                 # Dataset and database files
+│   ├── processed/                        # Preprocessed data files
+│   │   ├── README.md                     # Description of processed data
+│   │   ├── Testing.csv                   # Processed testing dataset
+│   │   └── Training.csv                  # Processed training dataset
+│   ├── raw/                              # Raw data files
+│   │   ├── Testing.csv                   # Raw testing dataset
+│   │   └── Training.csv                  # Raw training dataset
+│   └── sql/                              # SQL scripts and databases
+│       ├── database_disease_perdiction_using_machine_learning.db
+│       └── scripts_disease_perdiction_using_machine_learning.sql
+
+├── diagnose_the_disease/                 # Datasets for diagnosis analysis
+│   └── datasets/
+│       ├── Testing.csv                   # Duplicated testing dataset
+│       └── Training.csv                  # Duplicated training dataset
+
+├── experiments/                          # Jupyter notebooks for experiments and analysis
+│   ├── David_EDA_WIP.ipynb               # Exploratory data analysis
+│   ├── First Jupyter Notebook.ipynb      # Initial notebook
+│   ├── MDK_MLapproach_v3_withSHAP.ipynb  # SHAP analysis and ML approach
+│   ├── data_visualization.ipynb          # Data visualization scripts
+│   ├── grid_search_analysis.ipynb        # Grid search hyperparameter tuning
+│   ├── logistic_regression.ipynb         # Logistic regression experiments
+│   └── symptom_overlap_eda.ipynb         # Symptom overlap exploratory analysis
+
+├── jupiter_notebooks/                    # Additional notebooks
+│   ├── MDK_MLapproach.ipynb
+│   ├── MDK_MLapproach_v2.ipynb
+│   ├── MDK_MLapproach_v3.ipynb
+│   ├── MDK_MLapproach_v4.ipynb
+│   ├── MDK_MLapproach_v5_Olgas_code_pieces.ipynb
+│   ├── Testing.csv
+│   └── Training.csv
+
+├── logs/                                 # Logging directory
+│   ├── *.log                             # Placeholder for log files
+
+├── models/                               # Saved models
+│   ├── keras_models/                     # Keras model files
+│   │   └── model_CustomNeuralNetMDK_None_241206_03_30_55.pkl
+│   ├── model_KNN_None_241205_16_53_01.pkl
+│   ├── model_KNN_SelectKBest_241205_17_04_36.pkl
+│   ├── model_LogisticRegression_None_241205_16_51_02.pkl
+│   ├── model_LogisticRegression_RFE_241205_18_42_43.pkl
+│   ├── model_LogisticRegression_SelectKBest_241205_16_53_44.pkl
+│   ├── model_RandomForest_None_241205_16_51_08.pkl
+│   ├── model_RandomForest_SelectKBest_241205_16_54_11.pkl
+│   └── reduced_features/                 # Reduced feature models
+│       ├── model_CustomNeuralNetMDK_RFE_241206_04_17_30.pkl
+│       └── model_CustomNeuralNetMDK_SelectKBest_241206_03_39_01.pkl
+
+├── reports/                              # Reports and analysis results
+│   ├── grid_search_results_CustomNeuralNetMDK_None_241206_03_30_55.csv
+│   ├── grid_search_results_CustomNeuralNetMDK_RFE_241206_04_17_30.csv
+│   ├── grid_search_results_CustomNeuralNetMDK_SelectKBest_241206_03_39_01.csv
+│   ├── grid_search_results_KNN_None_241205_16_53_01.csv
+│   ├── grid_search_results_KNN_SelectKBest_241205_17_04_36.csv
+│   ├── grid_search_results_LogisticRegression_None_241205_16_51_02.csv
+│   ├── grid_search_results_LogisticRegression_RFE_241205_18_42_43.csv
+│   ├── grid_search_results_LogisticRegression_SelectKBest_241205_16_53_44.csv
+│   ├── grid_search_results_RandomForest_None_241205_16_51_08.csv
+│   ├── grid_search_results_RandomForest_SelectKBest_241205_16_54_11.csv
+
+│   ├── confusion_matrices/               # Confusion matrices for models
+│   │   ├── confusion_matrix_model_KNN_None_241205_16_53_01.pkl.png
+│   │   ├── confusion_matrix_model_KNN_SelectKBest_241205_17_04_36.pkl.png
+│   │   ├── confusion_matrix_model_LogisticRegression_None_241205_16_51_02.pkl.png
+│   │   ├── confusion_matrix_model_LogisticRegression_RFE_241205_18_42_43.pkl.png
+│   │   ├── confusion_matrix_model_LogisticRegression_SelectKBest_241205_16_53_44.pkl.png
+│   │   ├── confusion_matrix_model_RandomForest_None_241205_16_51_08.pkl.png
+│   │   └── confusion_matrix_model_RandomForest_SelectKBest_241205_16_54_11.pkl.png
+
+│   ├── feature_selection/                # Feature selection results
+│   │   ├── CustomNeuralNetMDKClassifier_RFE_241206_04_17_30.csv
+│   │   ├── CustomNeuralNetMDKClassifier_SelectKBest_241206_03_39_01.csv
+│   │   ├── KNeighborsClassifier_SelectKBest_241205_17_04_36.csv
+│   │   ├── LogisticRegression_RFE_241205_18_42_43.csv
+│   │   ├── LogisticRegression_SelectKBest_241205_16_53_44.csv
+│   │   └── RandomForestClassifier_SelectKBest_241205_16_54_11.csv
+
+│   ├── keras_training/                   # Keras training logs
+│   │   ├── history_241206_03_18_54.csv
+│   │   ├── history_241206_03_19_59.csv
+│   │   ├── history_241206_03_30_55.csv
+│   │   ├── history_241206_03_39_01.csv
+│   │   └── history_241206_04_17_30.csv
+
+│   └── plots/                            # Model performance plots
+│       └── validation_accuracy_model_RandomForest_SelectKBest_241205_16_54_11.pkl.png
+
+└── src/                                  # Source code for the project
+    ├── CustomNeuralNetMDKClassifier.py   # Custom neural network implementation
+    ├── disease_data_ingredient.py        # Data preparation script
+    ├── disease_experiment_classification_report.py  # Classification report generator
+    ├── disease_experiment_confusion_matrix.py       # Confusion matrix generator
+    ├── disease_experiment_evaluate.py    # Evaluation script
+    ├── disease_experiment_tuning.py      # Hyperparameter tuning
+    ├── disease_model_ingredient.py       # Model-related utilities
+    ├── disease_preproc_ingredient.py     # Data preprocessing script
+    ├── logger.py                         # Logging utilities
+    └── reports_helper.py                 # Helper for generating reports
+
+    ├── config/                           # Configuration files
+        ├── knn_pg.json                   # Config for KNN
+        ├── logistic_regression_pg.json   # Config for Logistic Regression
+        ├── mdk_v3_pg.json                # Config for MDK V3
+        ├── neural_net_pg.json            # Config for Neural Networks
+        └── random_forest_pg.json         # Config for Random Forest
+```
+
+
+1. README.md: Contains the project description, setup instructions, and general usage.
+2. environment.yml: Conda environment configuration file for dependency setup.
+3. data/: Organizes raw, processed datasets, and SQL scripts.
+4. experiments/: Notebooks for data exploration, EDA, and modeling experiments.
+5. jupiter_notebooks/: Notebooks for data exploration, EDA, and modeling experiments.
+6. models/: Stores trained models and serialized files.
+7. reports/: Performance evaluation reports, including confusion matrices and feature selection results.
+8. src/: Core source code for the project, including data processing, modeling, and utilities.
