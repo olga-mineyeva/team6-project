@@ -288,3 +288,21 @@ A feedforward neural network with _2 hidden layers of 64 and 32 nodes, dropout=0
 6. models/: Stores trained models and serialized files.
 7. reports/: Performance evaluation reports, including confusion matrices and feature selection results.
 8. src/: Core source code for the project, including data processing, modeling, and utilities.
+
+## Running the Project
+### Set Up Models
+1. Define preferred models in disease_model_ingredient.py. This script sets up model configurations.
+
+### Set Up Preprocessing
+1. Specify preprocessing steps in disease_preproc_ingredient.py, where data transformations are configured.
+
+### Configuration Files
+1. Edit the config/ folder to include all run parameters. Configuration files (knn_pg.json, logistic_regression_pg.json, mdk_v3_pg.json, neural_net_pg.json, random_forest_pg.json) hold settings like learning rates, iterations, and regularization methods.
+
+### Hyperparameter Tuning
+1. Use disease_experiment_tuning.py for hyperparameter tuning. It performs grid search cross-validation on the selected model, exports the best-performing model, and generates a grid search report. Modify grid search parameters using the cfg method.
+
+### Metrics and Evaluation
+1. Use disease_experiment_evaluate.py to evaluate model performance after training. It calculates key metrics such as accuracy, and weighted F1 score.
+2. Use disease_experiment_classification_report.py to generate a detailed classification report, providing insights into the model's performance for each class.
+3. Use disease_experiment_confusion_matrix.py to generate confusion matrices, helping to visualize model performance by comparing predicted vs. actual values across all classes.
