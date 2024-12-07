@@ -157,5 +157,5 @@ A feedforward neural network with _2 hidden layers of 64 and 32 nodes, dropout=0
 
 ---
 
-# Loading the dataset
+## Loading the dataset
 - Data will automatically load upon running the experiment.
