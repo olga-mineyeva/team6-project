@@ -1,8 +1,6 @@
-# team6-project
-A space for Team 6 to collaborate and create a project 
-
 ## Data Source
 - [Disease Prediction Using Machine Learning](https://www.kaggle.com/datasets/kaushil268/disease-prediction-using-machine-learning)
+- [Video Description](https://youtu.be/-TWgAoTOVmo)
 
 # Disease Prediction with Symptom Minimization Using Machine Learning
 
